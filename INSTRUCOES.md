@@ -42,6 +42,15 @@ No SLOT 14h, além do carrossel educativo, gere **um Reel curto do mesmo tema** 
 4. Pergunta para comentar + "Manda pra aquele amigo que opera cripto".
 5. Hashtags vão no `firstCommentText` (ver Crescimento orgânico).
 
+## TikTok (@Lander_cripto) — vale para TODOS os horários
+Todo conteúdo do Instagram também vai para o TikTok, no **mesmo horário**, como um agendamento **separado** no Metricool (provider `tiktok`, nunca no mesmo post do Instagram).
+- **Carrossel** → post de fotos no TikTok. O TikTok **não aceita PNG**: converta cada slide para JPG (`python3 -c "from PIL import Image; Image.open('X.png').convert('RGB').save('X.jpg', quality=92)"`), nomes `HHh_tiktok_N.jpg`, e use as URLs .jpg.
+  `tiktokData`: `{"privacyOption":"PUBLIC_TO_EVERYONE","autoAddMusic":true,"title":"<manchete da capa, até 90 caracteres>","photoCoverIndex":0,"disableComment":false,"disableDuet":false,"disableStitch":false,"commercialContentThirdParty":false,"commercialContentOwnBrand":false,"isAigc":false}`
+- **Reel / Trial Reel** → vídeo no TikTok com o mesmo .mp4. `tiktokData` igual, mas **sem** `autoAddMusic` e **sem** `title` (o vídeo já tem trilha).
+- **Story** não vai para o TikTok.
+- **Legenda do TikTok**: curta (2–3 linhas), começa com a palavra-chave buscada ("Bitcoin hoje:", "O que é staking?"), um convite (arrasta / assiste até o fim), uma pergunta para comentar, e 5–6 hashtags **na própria legenda** (#bitcoin #criptomoedas #mercadocripto #cripto #bitcoinbrasil + 1 do tema). Sem `firstCommentText`.
+- Se o TikTok falhar, o Instagram continua normal; só avise na mensagem final.
+
 ## Story de cada horário
 Todo horário publica também **1 story** (1080x1920) baseado em `template/story.html`: chamada para o post do feed com o dado principal do momento.
 Agende com `instagramData.type = "STORY"`, **sem texto** (campo text vazio), sem links/figurinhas, 1 minuto depois do post do feed.
@@ -66,4 +75,4 @@ Quando a lista acabar, recomece com novos ângulos dos mesmos temas.
 Como o mercado terminou o dia: BTC e ETH no dia, **maiores altas e maiores baixas** entre as top 100, notícia que dominou o dia, e o que esperar para amanhã (agenda). Aos domingos: "Agenda da semana".
 
 ## Mensagem final
-Ao terminar, envie ao usuário uma mensagem curta: o que foi agendado (feed/reel + story), horário e o `plannerUrl` do Metricool. Se algo falhar (dados, push, Metricool), diga claramente o que falhou.
+Ao terminar, envie ao usuário uma mensagem curta: o que foi agendado (Instagram feed/reel + story, e TikTok), horário e o `plannerUrl` do Metricool. Se algo falhar (dados, push, Metricool), diga claramente o que falhou.
