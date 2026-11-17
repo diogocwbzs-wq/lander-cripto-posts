@@ -46,7 +46,7 @@ No SLOT 14h, além do carrossel educativo, gere **um Reel curto do mesmo tema** 
 Todo conteúdo do Instagram também vai para o TikTok, no **mesmo horário**, como um agendamento **separado** no Metricool (provider `tiktok`, nunca no mesmo post do Instagram).
 - **Carrossel** → post de fotos no TikTok. O TikTok **não aceita PNG**: converta cada slide para JPG (`python3 -c "from PIL import Image; Image.open('X.png').convert('RGB').save('X.jpg', quality=92)"`), nomes `HHh_tiktok_N.jpg`, e use as URLs .jpg.
   `tiktokData`: `{"privacyOption":"PUBLIC_TO_EVERYONE","autoAddMusic":true,"title":"<manchete da capa, até 90 caracteres>","photoCoverIndex":0,"disableComment":false,"disableDuet":false,"disableStitch":false,"commercialContentThirdParty":false,"commercialContentOwnBrand":false,"isAigc":false}`
-- **Reel / Trial Reel** → vídeo no TikTok com o mesmo .mp4. `tiktokData` igual, mas **sem** `autoAddMusic` e **sem** `title` (o vídeo já tem trilha).
+- **Reel / Trial Reel** → vídeo no TikTok com o mesmo .mp4. `tiktokData` igual, mas **sem** `autoAddMusic` (o vídeo já tem trilha). O `title` é **obrigatório** também no vídeo (até 90 caracteres), senão o Metricool recusa.
 - **Story** não vai para o TikTok.
 - **Legenda do TikTok**: curta (2–3 linhas), começa com a palavra-chave buscada ("Bitcoin hoje:", "O que é staking?"), um convite (arrasta / assiste até o fim), uma pergunta para comentar, e 5–6 hashtags **na própria legenda** (#bitcoin #criptomoedas #mercadocripto #cripto #bitcoinbrasil + 1 do tema). Sem `firstCommentText`.
 - Se o TikTok falhar, o Instagram continua normal; só avise na mensagem final.
