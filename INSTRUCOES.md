@@ -51,6 +51,14 @@ Todo conteúdo do Instagram também vai para o TikTok, no **mesmo horário**, co
 - **Legenda do TikTok**: curta (2–3 linhas), começa com a palavra-chave buscada ("Bitcoin hoje:", "O que é staking?"), um convite (arrasta / assiste até o fim), uma pergunta para comentar, e 5–6 hashtags **na própria legenda** (#bitcoin #criptomoedas #mercadocripto #cripto #bitcoinbrasil + 1 do tema). Sem `firstCommentText`.
 - Se o TikTok falhar, o Instagram continua normal; só avise na mensagem final.
 
+## Facebook (Página Lander Cripto) — vale para TODOS os horários
+Todo conteúdo também vai para a Página do Facebook, no **mesmo horário**, como agendamento **separado** no Metricool (provider `facebook`, nunca junto com Instagram/TikTok).
+- **Carrossel** → `facebookData: {"type":"POST"}` com as mesmas imagens (pode usar os .jpg do TikTok).
+- **Reel / Trial Reel** → `facebookData: {"type":"REEL"}` com o mesmo .mp4.
+- **Story** → `facebookData: {"type":"STORY"}` com a mesma imagem do story do Instagram, 1 minuto depois do post, sem texto.
+- **Legenda do Facebook**: frases completas (público mais velho), 3–4 parágrafos curtos: o fato principal com números, convite para ver as imagens/vídeo, uma pergunta para comentar e "👉 Siga a Lander Cripto pra receber o resumo do mercado todo dia." No máximo 3 hashtags no final. Sem `firstCommentText`.
+- Se o Facebook falhar, as outras redes continuam normais; só avise na mensagem final.
+
 ## Story de cada horário
 Todo horário publica também **1 story** (1080x1920) baseado em `template/story.html`: chamada para o post do feed com o dado principal do momento.
 Agende com `instagramData.type = "STORY"`, **sem texto** (campo text vazio), sem links/figurinhas, 1 minuto depois do post do feed.
@@ -75,4 +83,4 @@ Quando a lista acabar, recomece com novos ângulos dos mesmos temas.
 Como o mercado terminou o dia: BTC e ETH no dia, **maiores altas e maiores baixas** entre as top 100, notícia que dominou o dia, e o que esperar para amanhã (agenda). Aos domingos: "Agenda da semana".
 
 ## Mensagem final
-Ao terminar, envie ao usuário uma mensagem curta: o que foi agendado (Instagram feed/reel + story, e TikTok), horário e o `plannerUrl` do Metricool. Se algo falhar (dados, push, Metricool), diga claramente o que falhou.
+Ao terminar, envie ao usuário uma mensagem curta: o que foi agendado (Instagram feed/reel + story, TikTok e Facebook), horário e o `plannerUrl` do Metricool. Se algo falhar (dados, push, Metricool), diga claramente o que falhou.
