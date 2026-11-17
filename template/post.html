@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --bg:#04060c; --bg2:#0a1020; --card:#0c1428; --line:#1a2747;
+    --blue:#1f6fff; --cyan:#22c3ff; --txt:#eaf1ff; --mut:#8a9bc4;
+    --up:#2fe0a0; --down:#ff4d6d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#222;font-family:'Inter',sans-serif;color:var(--txt);font-variant-numeric:tabular-nums}
+  .slide{
+    width:1080px;height:1350px;position:relative;overflow:hidden;margin:0 0 40px 0;
+    background:
+      radial-gradient(900px 700px at 85% -10%, rgba(31,111,255,.35), transparent 60%),
+      radial-gradient(700px 600px at -10% 110%, rgba(34,195,255,.18), transparent 60%),
+      linear-gradient(180deg,var(--bg2),var(--bg));
+    padding:90px 84px;
+  }
+  .slide::before{ /* grid */
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(80,120,220,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(80,120,220,.07) 1px,transparent 1px);
+    background-size:60px 60px;mask-image:linear-gradient(180deg,#000 0%,transparent 85%);
+  }
+  .slide > *{position:relative}
+  .brand{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.18em;font-size:26px}
+  .logo{width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--cyan));
+    display:grid;place-items:center;font-size:30px;font-weight:900;color:#04060c;letter-spacing:0;box-shadow:0 0 30px rgba(34,195,255,.5)}
+  .brand span b{color:var(--cyan)}
+  .top{display:flex;justify-content:space-between;align-items:center}
+  .pill{border:1.5px solid var(--line);background:rgba(12,20,40,.7);border-radius:999px;padding:12px 24px;font-size:22px;color:var(--mut);font-weight:600;letter-spacing:.06em}
+  .kicker{color:var(--cyan);font-weight:700;letter-spacing:.2em;font-size:24px;text-transform:uppercase}
+  h1{font-family:'Inter Display','Inter';font-weight:800;font-size:96px;line-height:1.02;letter-spacing:-.02em}
+  h2{font-family:'Inter Display','Inter';font-weight:800;font-size:68px;line-height:1.05;letter-spacing:-.015em}
+  .grad{background:linear-gradient(90deg,#fff,var(--cyan));-webkit-background-clip:text;color:transparent}
+  .up{color:var(--up)} .down{color:var(--down)}
+  .footer{position:absolute;left:84px;right:84px;bottom:70px;display:flex;justify-content:space-between;align-items:center;color:var(--mut);font-size:22px;font-weight:600}
+  .dots{display:flex;gap:10px}
+  .dots i{width:12px;height:12px;border-radius:50%;background:#24345c}
+  .dots i.on{background:var(--cyan);width:34px;border-radius:6px}
+  .card{background:linear-gradient(180deg,rgba(16,26,52,.9),rgba(10,16,32,.9));border:1.5px solid var(--line);border-radius:28px}
+  .src{font-size:18px;color:#5c6d96;font-weight:500}
+
+  /* slide 1 */
+  .hero-price{margin-top:110px;padding:56px 56px 48px}
+  .hero-price .lbl{font-size:28px;color:var(--mut);font-weight:600;display:flex;align-items:center;gap:14px}
+  .btc{width:44px;height:44px;border-radius:50%;background:#f7931a;color:#fff;display:grid;place-items:center;font-weight:900;font-size:26px}
+  .hero-price .val{white-space:nowrap;font-size:124px;font-weight:800;letter-spacing:-.03em;margin-top:10px}
+  .hero-price .chg{font-size:42px;font-weight:700;margin-top:4px}
+  svg.spark{position:absolute;right:48px;top:40px}
+  .swipe{position:absolute;right:84px;bottom:66px;font-size:26px;color:var(--cyan);font-weight:700;letter-spacing:.08em}
+
+  /* table */
+  table{width:100%;border-collapse:collapse}
+  td{padding:22px 34px;font-size:38px;font-weight:700;border-bottom:1.5px solid var(--line)}
+  tr:last-child td{border-bottom:none}
+  td.n{display:flex;align-items:center;gap:22px}
+  td.n small{display:block;font-size:22px;color:var(--mut);font-weight:600;margin-top:2px}
+  .ic{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:24px;color:#fff;flex:none}
+  td.p{text-align:right}
+  td.c{text-align:right;width:220px}
+  .chip{display:inline-block;padding:10px 18px;border-radius:14px;font-size:32px}
+  .chip.up{background:rgba(47,224,160,.12)}
+
+  /* gauges */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
+  .stat{padding:28px 38px}
+  .stat .l{font-size:24px;color:var(--mut);font-weight:600}
+  .stat .v{font-size:58px;font-weight:800;margin-top:8px;letter-spacing:-.02em}
+  .stat .s{font-size:24px;font-weight:600;margin-top:6px}
+  .fg{margin-top:40px;padding:34px 48px;display:flex;align-items:center;gap:44px}
+  .fg .num{font-size:120px;font-weight:900;color:var(--down);line-height:1}
+
+  /* news list */
+  .news{margin-top:36px;display:flex;flex-direction:column;gap:20px}
+  .item{padding:28px 36px;display:flex;gap:28px;align-items:flex-start}
+  .item .k{flex:none;width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;font-size:30px;font-weight:900;color:#04060c}
+  .item h3{font-size:34px;font-weight:800;line-height:1.2}
+  .item p{font-size:26px;color:var(--mut);margin-top:8px;line-height:1.4;font-weight:500}
+
+  /* levels */
+  .lv{margin-top:26px;padding:40px 44px}
+  .bar{position:relative;height:18px;border-radius:9px;background:linear-gradient(90deg,var(--down),#2a3a66 40%,#2a3a66 60%,var(--up));margin:70px 0 24px}
+  .mk{position:absolute;top:-58px;transform:translateX(-50%);text-align:center;font-size:22px;font-weight:700;white-space:nowrap}
+  .mk::after{content:"";display:block;width:4px;height:34px;background:currentColor;margin:8px auto 0;border-radius:2px}
+  .now{position:absolute;top:-11px;width:40px;height:40px;border-radius:50%;background:#fff;border:6px solid var(--cyan);transform:translateX(-50%);box-shadow:0 0 24px var(--cyan)}
+
+  /* CTA */
+  .cta{display:flex;flex-direction:column;justify-content:center;height:100%;gap:40px}
+  .btns{display:flex;flex-direction:column;gap:22px;margin-top:20px}
+  .btn{padding:34px 40px;font-size:36px;font-weight:700;display:flex;gap:24px;align-items:center}
+  .btn .k{width:60px;height:60px;border-radius:16px;background:rgba(34,195,255,.12);border:1.5px solid var(--cyan);display:grid;place-items:center;color:var(--cyan);font-size:30px}
+  .disc{font-size:22px;color:var(--mut);line-height:1.5;border-top:1.5px solid var(--line);padding-top:30px;font-weight:500}
+</style>
+</head>
+<body>
+
+<!-- 1 CAPA -->
+<section class="slide" id="s1">
+  <div class="top">
+    <div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div>
+    <div class="pill">TER • 17/11/2026</div>
+  </div>
+  <div style="margin-top:90px" class="kicker">Resumo do mercado</div>
+  <h1 style="margin-top:22px">Bitcoin respira,<br><span class="grad">mas o medo<br>continua.</span></h1>
+  <div class="card hero-price">
+    <div class="lbl"><div class="btc">₿</div>Bitcoin (BTC) · 24h</div>
+    <div class="val">US$ 65.037</div>
+    <div class="chg up">▲ +1,51% <span style="color:var(--mut);font-weight:600;font-size:28px">· repique após fundo de US$ 62 mil</span></div>
+    <svg class="spark" width="260" height="104" viewBox="0 0 300 120">
+      <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#22c3ff" stop-opacity=".45"/><stop offset="1" stop-color="#22c3ff" stop-opacity="0"/></linearGradient></defs>
+      <path d="M0 20 L40 30 L70 45 L100 60 L130 95 L150 108 L175 90 L200 80 L230 70 L260 62 L300 50 L300 120 L0 120Z" fill="url(#g)"/>
+      <path d="M0 20 L40 30 L70 45 L100 60 L130 95 L150 108 L175 90 L200 80 L230 70 L260 62 L300 50" fill="none" stroke="#22c3ff" stroke-width="5" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="swipe">ARRASTA ➜</div>
+  <div class="footer" style="right:330px"><span>@lander_cripto</span><div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div>
+</section>
+
+<!-- 2 PRINCIPAIS MOEDAS -->
+<section class="slide" id="s2">
+  <div class="top">
+    <div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div>
+    <div class="pill">VARIAÇÃO 24H</div>
+  </div>
+  <div style="margin-top:80px" class="kicker">Principais moedas</div>
+  <h2 style="margin-top:18px">Dia de alívio:<br><span class="grad">tudo no verde.</span></h2>
+  <div class="card" style="margin-top:50px;padding:6px 0">
+  <table>
+    <tr><td class="n"><div class="ic" style="background:#f7931a">₿</div><div>BTC<small>Bitcoin</small></div></td><td class="p">US$ 65.037</td><td class="c"><span class="chip up">+1,51%</span></td></tr>
+    <tr><td class="n"><div class="ic" style="background:#627eea">Ξ</div><div>ETH<small>Ethereum</small></div></td><td class="p">US$ 1.826</td><td class="c"><span class="chip up">+1,39%</span></td></tr>
+    <tr><td class="n"><div class="ic" style="background:linear-gradient(135deg,#9945ff,#14f195)">S</div><div>SOL<small>Solana</small></div></td><td class="p">US$ 73,68</td><td class="c"><span class="chip up">+4,05%</span></td></tr>
+    <tr><td class="n"><div class="ic" style="background:#23292f;border:2px solid #556">X</div><div>XRP<small>XRP</small></div></td><td class="p">US$ 0,976</td><td class="c"><span class="chip up">+2,64%</span></td></tr>
+    <tr><td class="n"><div class="ic" style="background:#f3ba2f;color:#111">B</div><div>BNB<small>BNB</small></div></td><td class="p">US$ 592,23</td><td class="c"><span class="chip up">+0,90%</span></td></tr>
+    <tr><td class="n"><div class="ic" style="background:#c2a633">Ð</div><div>DOGE<small>Dogecoin</small></div></td><td class="p">US$ 0,0594</td><td class="c"><span class="chip up">+1,65%</span></td></tr>
+  </table>
+  </div>
+  <div class="src" style="margin-top:22px">Fonte: CoinGecko via BlockTalk · manhã de 17/11</div>
+  <div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+</section>
+
+<!-- 3 TERMÔMETRO -->
+<section class="slide" id="s3">
+  <div class="top">
+    <div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div>
+    <div class="pill">TERMÔMETRO</div>
+  </div>
+  <div style="margin-top:80px" class="kicker">Sentimento do mercado</div>
+  <h2 style="margin-top:18px">Preço subiu,<br><span class="grad">confiança não.</span></h2>
+  <div class="card fg">
+    <svg width="300" height="170" viewBox="0 0 300 170">
+      <defs><linearGradient id="fgg" x1="0" x2="1"><stop offset="0" stop-color="#ff4d6d"/><stop offset=".5" stop-color="#f5c542"/><stop offset="1" stop-color="#2fe0a0"/></linearGradient></defs>
+      <path d="M25 150 A125 125 0 0 1 275 150" fill="none" stroke="#1a2747" stroke-width="26" stroke-linecap="round"/>
+      <path d="M25 150 A125 125 0 0 1 275 150" fill="none" stroke="url(#fgg)" stroke-width="26" stroke-linecap="round" opacity=".9"/>
+      <line x1="150" y1="150" x2="40" y2="105" stroke="#fff" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="150" cy="150" r="14" fill="#fff"/>
+    </svg>
+    <div>
+      <div class="num">12</div>
+      <div style="font-size:36px;font-weight:800;margin-top:8px">Medo Extremo</div>
+      <div style="font-size:24px;color:var(--mut);margin-top:6px;font-weight:600">Índice de Medo &amp; Ganância (0–100) · ontem: 10</div>
+    </div>
+  </div>
+  <div class="grid2">
+    <div class="card stat"><div class="l">Valor total do mercado</div><div class="v">US$ 2,2 tri</div></div>
+    <div class="card stat"><div class="l">Dominância do BTC</div><div class="v">59,6%</div></div>
+    <div class="card stat"><div class="l">Volume 24h</div><div class="v">US$ 68,4 bi</div><div class="s up">▲ +18,4%</div></div>
+    <div class="card stat"><div class="l">BTC em 7 dias</div><div class="v down">−12,7%</div><div class="s" style="color:var(--mut)">~48% abaixo do topo</div></div>
+  </div>
+  <div class="src" style="margin-top:22px">Fontes: BlockTalk, CoinCodex, The Crypto Times · 17/11</div>
+  <div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div></div>
+</section>
+
+<!-- 4 O QUE MEXEU -->
+<section class="slide" id="s4">
+  <div class="top">
+    <div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div>
+    <div class="pill">NOTÍCIAS</div>
+  </div>
+  <div style="margin-top:80px" class="kicker">O que mexeu com o mercado</div>
+  <h2 style="margin-top:18px">Em 4 pontos</h2>
+  <div class="news">
+    <div class="card item"><div class="k">1</div><div><h3>Fundo de US$ 62 mil no fim de semana</h3><p>Depois da forte queda de domingo (15), o BTC repicou e passou a oscilar entre US$ 64 mil e US$ 65 mil.</p></div></div>
+    <div class="card item"><div class="k">2</div><div><h3>ETFs: saídas perdem força</h3><p>Os ETFs de BTC nos EUA perderam cerca de US$ 2,35 bi em duas semanas, mas a sequência de saídas foi interrompida.</p></div></div>
+    <div class="card item"><div class="k">3</div><div><h3>Solana tira o selo “beta”</h3><p>Após mais de seis anos, a rede deixa oficialmente a fase beta. SOL lidera as altas do top 6.</p></div></div>
+    <div class="card item"><div class="k">4</div><div><h3>Ethereum e a computação quântica</h3><p>Vitalik Buterin defendeu acelerar o caminho para um Ethereum resistente a ataques quânticos.</p></div></div>
+  </div>
+  <div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i></i><i></i><i class="on"></i><i></i><i></i></div></div>
+</section>
+
+<!-- 5 FIQUE DE OLHO -->
+<section class="slide" id="s5">
+  <div class="top">
+    <div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div>
+    <div class="pill">RADAR</div>
+  </div>
+  <div style="margin-top:80px" class="kicker">Fique de olho</div>
+  <h2 style="margin-top:18px">O que pode mexer<br><span class="grad">nos próximos dias</span></h2>
+  <div class="news" style="margin-top:40px">
+    <div class="card item"><div class="k">⚡</div><div><h3>Balanço da Nvidia</h3><p>O resultado é visto como termômetro do setor de IA e do apetite por risco, e cripto tem andado junto com as ações de tecnologia.</p></div></div>
+    <div class="card item"><div class="k">◎</div><div><h3>IPO da Anthropic</h3><p>Outra estreia de peso no setor de IA marcada para esta semana, também acompanhada de perto pelo mercado.</p></div></div>
+  </div>
+  <div class="card lv">
+    <div style="font-size:30px;font-weight:800">Zonas de preço que o mercado acompanha no BTC</div>
+    <div class="bar">
+      <div class="mk" style="left:12%;color:var(--down)">US$ 62–63 mil</div>
+      <div class="mk" style="left:88%;color:var(--up)">US$ 69–70 mil</div>
+      <div class="now" style="left:38%"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:22px;color:var(--mut);font-weight:600"><span>suporte citado</span><span>● agora ~US$ 65 mil</span><span>resistência citada</span></div>
+    <div class="src" style="margin-top:18px">Níveis citados no relatório diário da KuCoin (17/11). Informativo, não é recomendação.</div>
+  </div>
+  <div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i></i><i></i><i></i><i class="on"></i><i></i></div></div>
+</section>
+
+<!-- 6 CTA -->
+<section class="slide" id="s6">
+  <div class="cta">
+    <div class="brand" style="font-size:34px"><div class="logo" style="width:80px;height:80px;font-size:44px;border-radius:20px">L</div><span>LANDER <b>CRIPTO</b></span></div>
+    <h1 style="font-size:88px">Todo dia,<br><span class="grad">o mercado cripto<br>em 1 minuto.</span></h1>
+    <div class="btns">
+      <div class="card btn"><div class="k">＋</div>Siga @lander_cripto</div>
+      <div class="card btn"><div class="k">⤓</div>Salve pra consultar depois</div>
+      <div class="card btn"><div class="k">➤</div>Mande pra quem opera cripto</div>
+    </div>
+    <div class="disc">Conteúdo informativo e educativo. Não é recomendação de compra ou venda de ativos. Criptomoedas são investimentos de alto risco: faça sua própria análise.</div>
+  </div>
+</section>
+
+</body>
+</html>
