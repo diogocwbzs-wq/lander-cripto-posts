@@ -8,7 +8,7 @@ Imagens/vídeos ficam públicos em:
 ## Regras que valem para todos os horários
 - **Nunca invente números.** Pesquise na web dados das últimas horas e cite as fontes em letra pequena nos slides.
 - Números no padrão brasileiro: `US$ 65.037`, `+1,51%`, `US$ 2,2 tri`.
-- **Nada de recomendação**: sem "compre/venda", sem alvo de preço, sem "call". Conteúdo informativo e educativo (regras da CVM). Zonas de preço só se citadas por uma fonte, e marcadas como informativas.
+- **Nada de recomendação**: sem "compre/venda", sem alvo de preço, sem "call". Conteúdo informativo e educativo (regras da CVM). **Não** coloque avisos do tipo "conteúdo informativo / não é recomendação" nos slides nem na legenda (decisão do dono do perfil); a proteção é simplesmente nunca recomendar. Zonas de preço só se citadas por uma fonte, e marcadas como informativas.
 - Siga o visual dos modelos em `template/` (azul e preto). Troque só textos, números e notícias; o número de slides pode variar entre 4 e 7.
 - Depois de gerar, **abra cada imagem** e confira se nada vaza, sobrepõe ou quebra linha errado. Corrija e gere de novo se preciso.
 - Pasta do dia: `AAAA-MM-DD/`. Nomes: `HHh_feed_N.png`, `HHh_story_1.png`, `HHh_reel.mp4`.
@@ -39,9 +39,8 @@ No SLOT 14h, além do carrossel educativo, gere **um Reel curto do mesmo tema** 
 1. Título com emoji (ex.: `📊 Resumo do mercado cripto — 18/11`)
 2. 2–3 frases resumindo o post + convite (arrasta / assiste até o fim)
 3. `💾 Salve pra consultar depois e siga @lander_cripto.`
-4. `⚠️ Conteúdo informativo, não é recomendação de investimento.`
-5. Pergunta para comentar + "Manda pra aquele amigo que opera cripto".
-6. Hashtags vão no `firstCommentText` (ver Crescimento orgânico).
+4. Pergunta para comentar + "Manda pra aquele amigo que opera cripto".
+5. Hashtags vão no `firstCommentText` (ver Crescimento orgânico).
 
 ## Story de cada horário
 Todo horário publica também **1 story** (1080x1920) baseado em `template/story.html`: chamada para o post do feed com o dado principal do momento.
