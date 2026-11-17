@@ -17,12 +17,31 @@ Imagens/vídeos ficam públicos em:
 - Commit e `git -c push.negotiate=true push origin main`; confira que as URLs respondem 200 antes de agendar.
 - Se o horário-alvo já passou, agende para daqui a 10 minutos.
 
+## Crescimento orgânico (vale para TODO post)
+Objetivo: atrair seguidores novos, não só agradar quem já segue.
+- **Capa/gancho**: o slide 1 (e o 1º quadro do Reel) tem que parar o dedo. Manchete curta (máx. 8 palavras), com número, contraste ou curiosidade. Ex.: "Bitcoin caiu 12% em 7 dias. E agora?", "3 erros que liquidam iniciante". Nada de capa genérica.
+- **SEO do Instagram**: a 1ª linha da legenda leva palavras que o público busca (ex.: "Bitcoin hoje", "mercado cripto hoje", "o que é staking"). Escreva frases naturais com essas palavras.
+- **Hashtags**: 5 a 8 por post, misturando 2 grandes (#bitcoin #criptomoedas), 3 médias (#mercadocripto #bitcoinbrasil #criptobrasil) e 2 específicas do tema do dia. Coloque as hashtags no `firstCommentText` (primeiro comentário), não na legenda.
+- **Texto alternativo**: preencha `mediaAltText` com uma frase descrevendo cada imagem (ajuda a busca).
+- **Pedir ação que gera alcance**: compartilhar e salvar contam mais que curtir. Termine a legenda com UMA pergunta simples que convide a comentar (ex.: "Você acha que o BTC volta pros 70 mil este mês? Comenta 👇" — é pergunta ao público, não recomendação) e com "Manda pra aquele amigo que opera cripto".
+- **Último slide** sempre convida a seguir @lander_cripto e mostra o que ele ganha seguindo (resumo diário, 5 posts por dia).
+- **Assuntos quentes primeiro**: se houver notícia forte do dia (ETF, regulação no Brasil, Receita Federal, golpe famoso, queda/alta brusca), ela vira a capa do horário seguinte.
+- **Brasil em destaque**: sempre que possível, mostre o preço do BTC também em reais (R$) e cite notícias do Brasil (CVM, Banco Central, Receita, exchanges brasileiras). O público BR se identifica e compartilha mais.
+
+## Trial Reel (alcance para quem ainda não segue)
+No SLOT 14h, além do carrossel educativo, gere **um Reel curto do mesmo tema** (5 quadros com `template/reel.html`: gancho em forma de pergunta, 3 quadros com a explicação, CTA "Siga para aprender cripto todo dia") e agende às **14:30** com `instagramData.type = "TRIAL_REEL"`. O Trial Reel é mostrado primeiro para quem não segue a conta. Se o Metricool recusar o tipo TRIAL_REEL, publique como `REEL` normal e avise na mensagem final.
+
+## Aprendizados da semana
+(Atualizado todo domingo pela análise semanal. Leia e aplique antes de criar qualquer post.)
+- Ainda sem dados: conta nova (início 17/11/2026).
+
 ## Legenda (feed e reel)
 1. Título com emoji (ex.: `📊 Resumo do mercado cripto — 18/11`)
 2. 2–3 frases resumindo o post + convite (arrasta / assiste até o fim)
 3. `💾 Salve pra consultar depois e siga @lander_cripto.`
 4. `⚠️ Conteúdo informativo, não é recomendação de investimento.`
-5. 6 a 8 hashtags relevantes (#bitcoin #criptomoedas #btc #mercadocripto #ethereum #investimentos …)
+5. Pergunta para comentar + "Manda pra aquele amigo que opera cripto".
+6. Hashtags vão no `firstCommentText` (ver Crescimento orgânico).
 
 ## Story de cada horário
 Todo horário publica também **1 story** (1080x1920) baseado em `template/story.html`: chamada para o post do feed com o dado principal do momento.
