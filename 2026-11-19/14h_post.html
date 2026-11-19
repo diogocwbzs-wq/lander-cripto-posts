@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --bg:#04060c; --bg2:#0a1020; --card:#0c1428; --line:#1a2747;
+    --blue:#1f6fff; --cyan:#22c3ff; --txt:#eaf1ff; --mut:#8a9bc4;
+    --up:#2fe0a0; --down:#ff4d6d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#222;font-family:'Inter',sans-serif;color:var(--txt);font-variant-numeric:tabular-nums}
+  .slide{
+    width:1080px;height:1350px;position:relative;overflow:hidden;margin:0 0 40px 0;
+    background:
+      radial-gradient(900px 700px at 85% -10%, rgba(31,111,255,.35), transparent 60%),
+      radial-gradient(700px 600px at -10% 110%, rgba(34,195,255,.18), transparent 60%),
+      linear-gradient(180deg,var(--bg2),var(--bg));
+    padding:90px 84px;
+  }
+  .slide::before{ /* grid */
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(80,120,220,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(80,120,220,.07) 1px,transparent 1px);
+    background-size:60px 60px;mask-image:linear-gradient(180deg,#000 0%,transparent 85%);
+  }
+  .slide > *{position:relative}
+  .brand{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.18em;font-size:26px}
+  .logo{width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--cyan));
+    display:grid;place-items:center;font-size:30px;font-weight:900;color:#04060c;letter-spacing:0;box-shadow:0 0 30px rgba(34,195,255,.5)}
+  .brand span b{color:var(--cyan)}
+  .top{display:flex;justify-content:space-between;align-items:center}
+  .pill{border:1.5px solid var(--line);background:rgba(12,20,40,.7);border-radius:999px;padding:12px 24px;font-size:22px;color:var(--mut);font-weight:600;letter-spacing:.06em}
+  .kicker{color:var(--cyan);font-weight:700;letter-spacing:.2em;font-size:24px;text-transform:uppercase}
+  h1{font-family:'Inter Display','Inter';font-weight:800;font-size:96px;line-height:1.02;letter-spacing:-.02em}
+  h2{font-family:'Inter Display','Inter';font-weight:800;font-size:68px;line-height:1.05;letter-spacing:-.015em}
+  .grad{background:linear-gradient(90deg,#fff,var(--cyan));-webkit-background-clip:text;color:transparent}
+  .up{color:var(--up)} .down{color:var(--down)}
+  .footer{position:absolute;left:84px;right:84px;bottom:70px;display:flex;justify-content:space-between;align-items:center;color:var(--mut);font-size:22px;font-weight:600}
+  .dots{display:flex;gap:10px}
+  .dots i{width:12px;height:12px;border-radius:50%;background:#24345c}
+  .dots i.on{background:var(--cyan);width:34px;border-radius:6px}
+  .card{background:linear-gradient(180deg,rgba(16,26,52,.9),rgba(10,16,32,.9));border:1.5px solid var(--line);border-radius:28px}
+  .src{font-size:18px;color:#5c6d96;font-weight:500}
+
+  /* slide 1 */
+  .hero-price{margin-top:110px;padding:56px 56px 48px}
+  .hero-price .lbl{font-size:28px;color:var(--mut);font-weight:600;display:flex;align-items:center;gap:14px}
+  .btc{width:44px;height:44px;border-radius:50%;background:#f7931a;color:#fff;display:grid;place-items:center;font-weight:900;font-size:26px}
+  .hero-price .val{white-space:nowrap;font-size:124px;font-weight:800;letter-spacing:-.03em;margin-top:10px}
+  .hero-price .chg{font-size:42px;font-weight:700;margin-top:4px}
+  svg.spark{position:absolute;right:48px;top:40px}
+  .swipe{position:absolute;right:84px;bottom:66px;font-size:26px;color:var(--cyan);font-weight:700;letter-spacing:.08em}
+
+  /* table */
+  table{width:100%;border-collapse:collapse}
+  td{padding:22px 34px;font-size:38px;font-weight:700;border-bottom:1.5px solid var(--line)}
+  tr:last-child td{border-bottom:none}
+  td.n{display:flex;align-items:center;gap:22px}
+  td.n small{display:block;font-size:22px;color:var(--mut);font-weight:600;margin-top:2px}
+  .ic{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:24px;color:#fff;flex:none}
+  td.p{text-align:right}
+  td.c{text-align:right;width:220px}
+  .chip{display:inline-block;padding:10px 18px;border-radius:14px;font-size:32px}
+  .chip.up{background:rgba(47,224,160,.12)}
+
+  /* gauges */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
+  .stat{padding:28px 38px}
+  .stat .l{font-size:24px;color:var(--mut);font-weight:600}
+  .stat .v{font-size:58px;font-weight:800;margin-top:8px;letter-spacing:-.02em}
+  .stat .s{font-size:24px;font-weight:600;margin-top:6px}
+  .fg{margin-top:40px;padding:34px 48px;display:flex;align-items:center;gap:44px}
+  .fg .num{font-size:120px;font-weight:900;color:var(--down);line-height:1}
+
+  /* news list */
+  .news{margin-top:36px;display:flex;flex-direction:column;gap:20px}
+  .item{padding:28px 36px;display:flex;gap:28px;align-items:flex-start}
+  .item .k{flex:none;width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;font-size:30px;font-weight:900;color:#04060c}
+  .item h3{font-size:34px;font-weight:800;line-height:1.2}
+  .item p{font-size:26px;color:var(--mut);margin-top:8px;line-height:1.4;font-weight:500}
+
+  /* levels */
+  .lv{margin-top:26px;padding:40px 44px}
+  .bar{position:relative;height:18px;border-radius:9px;background:linear-gradient(90deg,var(--down),#2a3a66 40%,#2a3a66 60%,var(--up));margin:70px 0 24px}
+  .mk{position:absolute;top:-58px;transform:translateX(-50%);text-align:center;font-size:22px;font-weight:700;white-space:nowrap}
+  .mk::after{content:"";display:block;width:4px;height:34px;background:currentColor;margin:8px auto 0;border-radius:2px}
+  .now{position:absolute;top:-11px;width:40px;height:40px;border-radius:50%;background:#fff;border:6px solid var(--cyan);transform:translateX(-50%);box-shadow:0 0 24px var(--cyan)}
+
+  /* CTA */
+  .cta{display:flex;flex-direction:column;justify-content:center;height:100%;gap:40px}
+  .btns{display:flex;flex-direction:column;gap:22px;margin-top:20px}
+  .btn{padding:34px 40px;font-size:36px;font-weight:700;display:flex;gap:24px;align-items:center}
+  .btn .k{width:60px;height:60px;border-radius:16px;background:rgba(34,195,255,.12);border:1.5px solid var(--cyan);display:grid;place-items:center;color:var(--cyan);font-size:30px}
+  .disc{font-size:22px;color:var(--mut);line-height:1.5;border-top:1.5px solid var(--line);padding-top:30px;font-weight:500}
+</style>
+<style>
+.pt{padding:30px 38px;display:flex;gap:28px;align-items:flex-start}
+.pt .k{flex:none;width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;font-size:30px;font-weight:900;color:#04060c}
+.pt h3{font-size:36px;font-weight:800;line-height:1.2}
+.pt p{font-size:27px;color:var(--mut);margin-top:8px;line-height:1.4;font-weight:500}
+.huge{font-size:200px;font-weight:900;line-height:1;letter-spacing:-.04em}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:40px}
+.vs .card{padding:34px 34px}
+.vs h3{font-size:36px;font-weight:800}
+.vs p{font-size:27px;color:var(--mut);margin-top:12px;line-height:1.4;font-weight:500}
+</style>
+</head>
+<body><style>
+.halv td{padding:20px 34px;font-size:36px}
+.halv td small{display:block;font-size:22px;color:var(--mut);font-weight:600}
+</style>
+<section class="slide" id="s1"><div class="top"><div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div><div class="pill">EDUCATIVO • 19/11</div></div>
+<div style="margin-top:90px" class="kicker">Cripto do zero · Aula 2</div>
+<h1 style="margin-top:22px">O evento que<br>corta o Bitcoin<br><span class="grad">pela metade.</span></h1>
+<div class="card hero-price" style="margin-top:80px">
+  <div class="lbl"><div class="btc">₿</div>Próximo halving (estimativa)</div>
+  <div class="val" style="font-size:110px">abril/2028</div>
+  <div class="chg" style="color:var(--mut);font-size:32px;font-weight:600">faltam ~75.800 blocos · cerca de 17 meses</div>
+</div>
+<div class="src" style="margin-top:20px">Fonte: CoinGecko (contagem do halving, 19/11/2026) · data pode variar alguns dias</div>
+<div class="swipe">ARRASTA ➜</div>
+<div class="footer" style="right:330px"><span>@lander_cripto</span><div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+</section>
+<section class="slide" id="s2"><div class="top"><div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div><div class="pill">O QUE É</div></div>
+<div style="margin-top:80px" class="kicker">Halving = “cortar pela metade”</div>
+<h2 style="margin-top:18px">A recompensa<br><span class="grad">cai pela metade.</span></h2>
+<div class="news" style="margin-top:44px">
+ <div class="card pt"><div class="k">1</div><div><h3>Mineradores criam os blocos</h3><p>Computadores no mundo todo registram as transações. Quem fecha um bloco ganha bitcoins novos.</p></div></div>
+ <div class="card pt"><div class="k">2</div><div><h3>A cada 210 mil blocos…</h3><p>…o prêmio por bloco é cortado pela metade. Isso dá mais ou menos a cada 4 anos.</p></div></div>
+ <div class="card pt"><div class="k">3</div><div><h3>Automático, no código</h3><p>Ninguém vota nem decide. A regra existe desde 2009 e vale pra todos.</p></div></div>
+</div>
+<div class="src" style="margin-top:22px">Fonte: whitepaper e código do Bitcoin · CoinGecko</div>
+<div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div></section>
+<section class="slide" id="s3"><div class="top"><div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div><div class="pill">HISTÓRICO</div></div>
+<div style="margin-top:70px" class="kicker">Prêmio por bloco</div>
+<h2 style="margin-top:18px">De 50 bitcoins<br><span class="grad">para 3,125.</span></h2>
+<div class="card halv" style="margin-top:40px;padding:4px 0">
+<table>
+ <tr><td>2009<small>início da rede</small></td><td style="text-align:right">50 BTC</td></tr>
+ <tr><td>nov/2012<small>1º halving</small></td><td style="text-align:right">25 BTC</td></tr>
+ <tr><td>jul/2016<small>2º halving</small></td><td style="text-align:right">12,5 BTC</td></tr>
+ <tr><td>mai/2020<small>3º halving</small></td><td style="text-align:right">6,25 BTC</td></tr>
+ <tr><td>abr/2024<small>4º halving · hoje</small></td><td style="text-align:right;color:var(--cyan)">3,125 BTC</td></tr>
+ <tr><td>~abr/2028<small>5º halving (previsto)</small></td><td style="text-align:right;color:var(--mut)">1,5625 BTC</td></tr>
+</table>
+</div>
+<div class="src" style="margin-top:20px">Fonte: CoinGecko (blocos 210 mil, 420 mil, 630 mil, 840 mil e 1,05 milhão)</div>
+<div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div></div></section>
+<section class="slide" id="s4"><div class="top"><div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div><div class="pill">NA PRÁTICA</div></div>
+<div style="margin-top:80px" class="kicker">Exemplo prático</div>
+<h2 style="margin-top:18px">Quanto bitcoin<br><span class="grad">nasce por dia?</span></h2>
+<div class="vs">
+ <div class="card"><div style="font-size:26px;color:var(--mut);font-weight:600">Hoje</div><div style="font-size:84px;font-weight:900;margin-top:6px">450</div><p style="margin-top:4px">BTC novos por dia<br>(144 blocos × 3,125)</p></div>
+ <div class="card" style="border-color:var(--cyan)"><div style="font-size:26px;color:var(--mut);font-weight:600">Depois de 2028</div><div style="font-size:84px;font-weight:900;margin-top:6px;color:var(--cyan)">225</div><p style="margin-top:4px">BTC novos por dia<br>(144 blocos × 1,5625)</p></div>
+</div>
+<div class="card" style="margin-top:28px;padding:36px 44px">
+  <div style="font-size:30px;font-weight:800">Em reais, hoje: ~R$ 168 milhões/dia</div>
+  <div style="font-size:27px;color:var(--mut);margin-top:12px;line-height:1.45;font-weight:500">É o valor aproximado dos bitcoins novos que chegam ao mercado todo dia. Com o halving, essa “torneira” fecha pela metade, de uma vez.</div>
+</div>
+<div class="src" style="margin-top:20px">Cálculo: 1 bloco a cada ~10 min; BTC a ~R$ 374 mil (Criptodata, manhã de 19/11)</div>
+<div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div></div></section>
+<section class="slide" id="s5"><div class="top"><div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div><div class="pill">POR QUE IMPORTA</div></div>
+<div style="margin-top:70px" class="kicker">O que muda</div>
+<h2 style="margin-top:18px">Escassez<br><span class="grad">programada.</span></h2>
+<div class="news" style="margin-top:36px;gap:16px">
+ <div class="card pt"><div class="k">1</div><div><h3>Menos oferta nova</h3><p>Entra menos bitcoin no mercado. É o oposto de “imprimir dinheiro”.</p></div></div>
+ <div class="card pt"><div class="k">2</div><div><h3>Mineradores ganham menos</h3><p>O prêmio cai e os custos ficam. Os menos eficientes podem desligar as máquinas.</p></div></div>
+ <div class="card pt"><div class="k">3</div><div><h3>Caminho até 21 milhões</h3><p>Os cortes continuam até o último bitcoin, previsto para por volta de 2140.</p></div></div>
+ <div class="card pt"><div class="k">!</div><div><h3>Não é garantia de alta</h3><p>O preço depende também da procura e da economia. Passado não garante futuro.</p></div></div>
+</div>
+<div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i></i><i></i><i></i><i class="on"></i><i></i><i></i></div></div></section>
+<section class="slide" id="s6"><div class="top"><div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div><div class="pill">RESUMO</div></div>
+<div style="margin-top:80px" class="kicker">Resumo em 3 pontos</div>
+<h2 style="margin-top:18px">Pra nunca<br><span class="grad">mais esquecer</span></h2>
+<div class="news" style="margin-top:44px">
+ <div class="card pt"><div class="k">1</div><div><h3>Corte automático</h3><p>A cada 210 mil blocos (~4 anos), o prêmio dos mineradores cai pela metade.</p></div></div>
+ <div class="card pt"><div class="k">2</div><div><h3>Já foram 4 halvings</h3><p>De 50 para 3,125 BTC por bloco. O próximo deve ser por volta de abril/2028.</p></div></div>
+ <div class="card pt"><div class="k">3</div><div><h3>Menos bitcoin novo</h3><p>Hoje nascem ~450 BTC por dia; depois de 2028, ~225.</p></div></div>
+</div>
+<div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i></i><i></i><i></i><i></i><i class="on"></i><i></i></div></div></section>
+<section class="slide" id="s7"><div class="cta">
+<div class="brand" style="font-size:34px"><div class="logo" style="width:80px;height:80px;font-size:44px;border-radius:20px">L</div><span>LANDER <b>CRIPTO</b></span></div>
+<h1 style="font-size:84px">Aprenda cripto<br><span class="grad">do zero, todo dia.</span></h1>
+<div style="font-size:32px;color:var(--mut);font-weight:600;line-height:1.4">5 posts por dia: resumo do mercado, notícias<br>e uma aula nova às 14h.</div>
+<div class="btns">
+ <div class="card btn"><div class="k">＋</div>Siga @lander_cripto</div>
+ <div class="card btn"><div class="k">⤓</div>Salve pra consultar depois</div>
+ <div class="card btn"><div class="k">➤</div>Mande pra quem tá começando</div>
+</div></div></section>
+</body></html>
