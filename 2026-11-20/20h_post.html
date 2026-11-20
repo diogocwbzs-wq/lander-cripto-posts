@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<style>
+  :root{
+    --bg:#04060c; --bg2:#0a1020; --card:#0c1428; --line:#1a2747;
+    --blue:#1f6fff; --cyan:#22c3ff; --txt:#eaf1ff; --mut:#8a9bc4;
+    --up:#2fe0a0; --down:#ff4d6d;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#222;font-family:'Inter',sans-serif;color:var(--txt);font-variant-numeric:tabular-nums}
+  .slide{
+    width:1080px;height:1350px;position:relative;overflow:hidden;margin:0 0 40px 0;
+    background:
+      radial-gradient(900px 700px at 85% -10%, rgba(31,111,255,.35), transparent 60%),
+      radial-gradient(700px 600px at -10% 110%, rgba(34,195,255,.18), transparent 60%),
+      linear-gradient(180deg,var(--bg2),var(--bg));
+    padding:90px 84px;
+  }
+  .slide::before{ /* grid */
+    content:"";position:absolute;inset:0;
+    background-image:linear-gradient(rgba(80,120,220,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(80,120,220,.07) 1px,transparent 1px);
+    background-size:60px 60px;mask-image:linear-gradient(180deg,#000 0%,transparent 85%);
+  }
+  .slide > *{position:relative}
+  .brand{display:flex;align-items:center;gap:18px;font-weight:800;letter-spacing:.18em;font-size:26px}
+  .logo{width:54px;height:54px;border-radius:14px;background:linear-gradient(135deg,var(--blue),var(--cyan));
+    display:grid;place-items:center;font-size:30px;font-weight:900;color:#04060c;letter-spacing:0;box-shadow:0 0 30px rgba(34,195,255,.5)}
+  .brand span b{color:var(--cyan)}
+  .top{display:flex;justify-content:space-between;align-items:center}
+  .pill{border:1.5px solid var(--line);background:rgba(12,20,40,.7);border-radius:999px;padding:12px 24px;font-size:22px;color:var(--mut);font-weight:600;letter-spacing:.06em}
+  .kicker{color:var(--cyan);font-weight:700;letter-spacing:.2em;font-size:24px;text-transform:uppercase}
+  h1{font-family:'Inter Display','Inter';font-weight:800;font-size:96px;line-height:1.02;letter-spacing:-.02em}
+  h2{font-family:'Inter Display','Inter';font-weight:800;font-size:68px;line-height:1.05;letter-spacing:-.015em}
+  .grad{background:linear-gradient(90deg,#fff,var(--cyan));-webkit-background-clip:text;color:transparent}
+  .up{color:var(--up)} .down{color:var(--down)}
+  .footer{position:absolute;left:84px;right:84px;bottom:70px;display:flex;justify-content:space-between;align-items:center;color:var(--mut);font-size:22px;font-weight:600}
+  .dots{display:flex;gap:10px}
+  .dots i{width:12px;height:12px;border-radius:50%;background:#24345c}
+  .dots i.on{background:var(--cyan);width:34px;border-radius:6px}
+  .card{background:linear-gradient(180deg,rgba(16,26,52,.9),rgba(10,16,32,.9));border:1.5px solid var(--line);border-radius:28px}
+  .src{font-size:18px;color:#5c6d96;font-weight:500}
+
+  /* slide 1 */
+  .hero-price{margin-top:110px;padding:56px 56px 48px}
+  .hero-price .lbl{font-size:28px;color:var(--mut);font-weight:600;display:flex;align-items:center;gap:14px}
+  .btc{width:44px;height:44px;border-radius:50%;background:#f7931a;color:#fff;display:grid;place-items:center;font-weight:900;font-size:26px}
+  .hero-price .val{white-space:nowrap;font-size:124px;font-weight:800;letter-spacing:-.03em;margin-top:10px}
+  .hero-price .chg{font-size:42px;font-weight:700;margin-top:4px}
+  svg.spark{position:absolute;right:48px;top:40px}
+  .swipe{position:absolute;right:84px;bottom:66px;font-size:26px;color:var(--cyan);font-weight:700;letter-spacing:.08em}
+
+  /* table */
+  table{width:100%;border-collapse:collapse}
+  td{padding:22px 34px;font-size:38px;font-weight:700;border-bottom:1.5px solid var(--line)}
+  tr:last-child td{border-bottom:none}
+  td.n{display:flex;align-items:center;gap:22px}
+  td.n small{display:block;font-size:22px;color:var(--mut);font-weight:600;margin-top:2px}
+  .ic{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-weight:900;font-size:24px;color:#fff;flex:none}
+  td.p{text-align:right}
+  td.c{text-align:right;width:220px}
+  .chip{display:inline-block;padding:10px 18px;border-radius:14px;font-size:32px}
+  .chip.up{background:rgba(47,224,160,.12)}
+
+  /* gauges */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:28px}
+  .stat{padding:28px 38px}
+  .stat .l{font-size:24px;color:var(--mut);font-weight:600}
+  .stat .v{font-size:58px;font-weight:800;margin-top:8px;letter-spacing:-.02em}
+  .stat .s{font-size:24px;font-weight:600;margin-top:6px}
+  .fg{margin-top:40px;padding:34px 48px;display:flex;align-items:center;gap:44px}
+  .fg .num{font-size:120px;font-weight:900;color:var(--down);line-height:1}
+
+  /* news list */
+  .news{margin-top:36px;display:flex;flex-direction:column;gap:20px}
+  .item{padding:28px 36px;display:flex;gap:28px;align-items:flex-start}
+  .item .k{flex:none;width:64px;height:64px;border-radius:18px;background:linear-gradient(135deg,var(--blue),var(--cyan));display:grid;place-items:center;font-size:30px;font-weight:900;color:#04060c}
+  .item h3{font-size:34px;font-weight:800;line-height:1.2}
+  .item p{font-size:26px;color:var(--mut);margin-top:8px;line-height:1.4;font-weight:500}
+
+  /* levels */
+  .lv{margin-top:26px;padding:40px 44px}
+  .bar{position:relative;height:18px;border-radius:9px;background:linear-gradient(90deg,var(--down),#2a3a66 40%,#2a3a66 60%,var(--up));margin:70px 0 24px}
+  .mk{position:absolute;top:-58px;transform:translateX(-50%);text-align:center;font-size:22px;font-weight:700;white-space:nowrap}
+  .mk::after{content:"";display:block;width:4px;height:34px;background:currentColor;margin:8px auto 0;border-radius:2px}
+  .now{position:absolute;top:-11px;width:40px;height:40px;border-radius:50%;background:#fff;border:6px solid var(--cyan);transform:translateX(-50%);box-shadow:0 0 24px var(--cyan)}
+
+  /* CTA */
+  .cta{display:flex;flex-direction:column;justify-content:center;height:100%;gap:40px}
+  .btns{display:flex;flex-direction:column;gap:22px;margin-top:20px}
+  .btn{padding:34px 40px;font-size:36px;font-weight:700;display:flex;gap:24px;align-items:center}
+  .btn .k{width:60px;height:60px;border-radius:16px;background:rgba(34,195,255,.12);border:1.5px solid var(--cyan);display:grid;place-items:center;color:var(--cyan);font-size:30px}
+  .disc{font-size:22px;color:var(--mut);line-height:1.5;border-top:1.5px solid var(--line);padding-top:30px;font-weight:500}
+</style>
+<style>
+  .chip.down{background:rgba(255,77,109,.12)}
+  .mv td{padding:11px 30px;font-size:31px}
+  .mv td.c{width:200px}
+  .mv .chip{font-size:28px;padding:8px 14px}
+  .colh{font-size:24px;font-weight:800;letter-spacing:.12em;padding:14px 30px 2px;text-transform:uppercase}
+</style>
+</head>
+<body>
+
+<!-- 1 CAPA -->
+<section class="slide" id="s1">
+  <div class="top">
+    <div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div>
+    <div class="pill">SEX • 20/11/2026</div>
+  </div>
+  <div style="margin-top:90px" class="kicker">Fechamento do dia</div>
+  <h1 style="margin-top:22px">Bitcoin a 2%<br>da mínima do ano.<br><span class="grad">E agora?</span></h1>
+  <div class="card hero-price" style="margin-top:80px">
+    <div class="lbl"><div class="btc">₿</div>Bitcoin (BTC) · fim da tarde</div>
+    <div class="val">US$ 59.188</div>
+    <div class="chg down">▼ −4,75% <span style="color:var(--mut);font-weight:600;font-size:28px">· ≈ R$ 351 mil</span></div>
+    <svg class="spark" width="260" height="104" viewBox="0 0 300 120">
+      <defs><linearGradient id="g" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#ff4d6d" stop-opacity=".40"/><stop offset="1" stop-color="#ff4d6d" stop-opacity="0"/></linearGradient></defs>
+      <path d="M0 22 L40 26 L70 24 L100 34 L130 50 L160 62 L190 84 L220 100 L250 96 L300 92 L300 120 L0 120Z" fill="url(#g)"/>
+      <path d="M0 22 L40 26 L70 24 L100 34 L130 50 L160 62 L190 84 L220 100 L250 96 L300 92" fill="none" stroke="#ff4d6d" stroke-width="5" stroke-linejoin="round"/>
+    </svg>
+  </div>
+  <div class="src" style="margin-top:20px">CoinDesk (tarde de 20/11) · R$: dólar a R$ 5,93 (fech. 19/11, InfoMoney)</div>
+  <div class="swipe">ARRASTA ➜</div>
+  <div class="footer" style="right:330px"><span>@lander_cripto</span><div class="dots"><i class="on"></i><i></i><i></i><i></i><i></i><i></i></div></div>
+</section>
+
+<!-- 2 BTC E ETH NO DIA -->
+<section class="slide" id="s2">
+  <div class="top">
+    <div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div>
+    <div class="pill">BTC E ETH</div>
+  </div>
+  <div style="margin-top:80px" class="kicker">Como terminou o dia</div>
+  <h2 style="margin-top:18px">Perdeu os US$ 60 mil<br><span class="grad">pela 1ª vez desde julho.</span></h2>
+  <div class="grid2" style="margin-top:46px">
+    <div class="card stat"><div class="l">₿ Bitcoin</div><div class="v">US$ 59.188</div><div class="s down">▼ −4,75% em 24h</div></div>
+    <div class="card stat"><div class="l">Ξ Ethereum</div><div class="v">US$ 1.625</div><div class="s down">▼ −7,6% em 24h</div></div>
+    <div class="card stat"><div class="l">Mínima do BTC hoje</div><div class="v">US$ 58.807</div><div class="s" style="color:var(--mut)">Bitstamp (TradingView)</div></div>
+    <div class="card stat"><div class="l">Mínima de 2026</div><div class="v">US$ 57.718</div><div class="s" style="color:var(--mut)">1º de julho (Coinbase)</div></div>
+  </div>
+  <div class="card fg" style="margin-top:28px;padding:30px 44px;gap:36px">
+    <div class="num" style="font-size:96px">12</div>
+    <div>
+      <div style="font-size:34px;font-weight:800">Medo Extremo</div>
+      <div style="font-size:24px;color:var(--mut);margin-top:6px;font-weight:600">Índice de Medo &amp; Ganância (0–100) · BTC na semana: −13,8%</div>
+    </div>
+  </div>
+  <div class="src" style="margin-top:22px">Fontes: CoinDesk, FinanceFeeds (TradingView, Coinbase, Alternative.me), Cointelegraph · 20/11</div>
+  <div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div></div>
+</section>
+
+<!-- 3 ALTAS E BAIXAS -->
+<section class="slide" id="s3">
+  <div class="top">
+    <div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div>
+    <div class="pill">TOP 100 · 24H</div>
+  </div>
+  <div style="margin-top:50px" class="kicker">Quem subiu e quem caiu</div>
+  <h2 style="margin-top:18px">Quase tudo<br><span class="grad">no vermelho</span></h2>
+  <div class="card mv" style="margin-top:30px;padding:6px 0 10px">
+    <div class="colh up">▲ Altas</div>
+    <table>
+      <tr><td>KITE <span style="color:var(--mut);font-size:24px">Kite</span></td><td class="c"><span class="chip up">+2,09%</span></td></tr>
+      <tr><td>M <span style="color:var(--mut);font-size:24px">MemeCore</span></td><td class="c"><span class="chip up">+1,17%</span></td></tr>
+      <tr><td>SKY <span style="color:var(--mut);font-size:24px">Sky</span></td><td class="c"><span class="chip up">+0,98%</span></td></tr>
+    </table>
+  </div>
+  <div class="card mv" style="margin-top:18px;padding:6px 0 10px">
+    <div class="colh down">▼ Baixas</div>
+    <table>
+      <tr><td>LIT <span style="color:var(--mut);font-size:24px">Lighter</span></td><td class="c"><span class="chip down">−17,68%</span></td></tr>
+      <tr><td>ZEC <span style="color:var(--mut);font-size:24px">Zcash</span></td><td class="c"><span class="chip down">−15,21%</span></td></tr>
+      <tr><td>VVV <span style="color:var(--mut);font-size:24px">Venice Token</span></td><td class="c"><span class="chip down">−13,97%</span></td></tr>
+      <tr><td>ZRO <span style="color:var(--mut);font-size:24px">LayerZero</span></td><td class="c"><span class="chip down">−13,34%</span></td></tr>
+    </table>
+  </div>
+  <div class="src" style="margin-top:18px">Fonte: CoinMarketCap (top 100, 24h) · consulta no início da noite de 20/11</div>
+  <div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i></i><i class="on"></i><i></i><i></i><i></i></div></div>
+</section>
+
+<!-- 4 NOTÍCIA DO DIA -->
+<section class="slide" id="s4">
+  <div class="top">
+    <div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div>
+    <div class="pill">NOTÍCIAS</div>
+  </div>
+  <div style="margin-top:50px" class="kicker">O que dominou o dia</div>
+  <h2 style="margin-top:18px">Venda geral:<br><span class="grad">IA, Fed e alavancagem</span></h2>
+  <div class="news" style="margin-top:26px;gap:16px">
+    <div class="card item"><div class="k">1</div><div><h3>Tecnologia derrete em Nova York</h3><p>Nasdaq cai mais de 2,5%. Anthropic, no 2º dia na bolsa, recua ~9% e chega perto do preço do IPO.</p></div></div>
+    <div class="card item"><div class="k">2</div><div><h3>US$ 1,58 bi em liquidações</h3><p>Em 24h, segundo a CoinGlass. Cerca de 90% eram apostas na alta (posições compradas).</p></div></div>
+    <div class="card item"><div class="k">3</div><div><h3>ETF da BlackRock: saída recorde</h3><p>IBIT perdeu US$ 541 mi na quinta, maior saída diária da história. ETFs de BTC: −US$ 582 mi.</p></div></div>
+    <div class="card item"><div class="k">4</div><div><h3>Fed: ~93% de chance de alta</h3><p>Mercado aposta em alta de juros nos EUA em 9/12. Juro alto tira dinheiro de ativos de risco.</p></div></div>
+  </div>
+  <div class="src" style="margin-top:18px">Fontes: Cointelegraph, CoinDesk, FinanceFeeds (CoinGlass, CME FedWatch), Farside, U.Today · 20/11</div>
+  <div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i></i><i></i><i class="on"></i><i></i><i></i></div></div>
+</section>
+
+<!-- 5 AMANHÃ -->
+<section class="slide" id="s5">
+  <div class="top">
+    <div class="brand"><div class="logo">L</div><span>LANDER <b>CRIPTO</b></span></div>
+    <div class="pill">AGENDA</div>
+  </div>
+  <div style="margin-top:80px" class="kicker">O que esperar</div>
+  <h2 style="margin-top:18px">Fim de semana<br><span class="grad">decisivo</span></h2>
+  <div class="news" style="margin-top:40px">
+    <div class="card item"><div class="k" style="font-size:18px">DOM</div><div><h3>Fechamento semanal (22/11)</h3><p>Pode ser a 7ª semana seguida de queda do BTC, a maior sequência desde maio de 2022.</p></div></div>
+    <div class="card item"><div class="k" style="font-size:18px">26/11</div><div><h3>Feriado nos EUA</h3><p>Ação de Graças: bolsa fechada na quinta e meio pregão na sexta. Liquidez menor.</p></div></div>
+  </div>
+  <div class="card lv">
+    <div style="font-size:30px;font-weight:800">Zonas de preço que o mercado acompanha no BTC</div>
+    <div class="bar">
+      <div class="mk" style="left:12%;color:var(--down)">US$ 57,7 mil</div>
+      <div class="mk" style="left:88%;color:var(--up)">US$ 60 mil</div>
+      <div class="now" style="left:62%"></div>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:22px;color:var(--mut);font-weight:600"><span>mínima de 2026</span><span>● agora ~US$ 59,2 mil</span><span>piso perdido</span></div>
+    <div class="src" style="margin-top:18px">Níveis citados por CoinDesk e Bitcoin Magazine. Agenda: Economic News Brasil, Crypto News Flash · 20/11</div>
+  </div>
+  <div class="footer"><span>@lander_cripto</span><div class="dots"><i></i><i></i><i></i><i></i><i class="on"></i><i></i></div></div>
+</section>
+
+<!-- 6 CTA -->
+<section class="slide" id="s6">
+  <div class="cta">
+    <div class="brand" style="font-size:34px"><div class="logo" style="width:80px;height:80px;font-size:44px;border-radius:20px">L</div><span>LANDER <b>CRIPTO</b></span></div>
+    <h1 style="font-size:88px">Siga e receba<br><span class="grad">5 posts por dia<br>sobre cripto.</span></h1>
+    <div class="btns">
+      <div class="card btn"><div class="k">＋</div>Siga @lander_cripto</div>
+      <div class="card btn"><div class="k">☕</div>Bom dia, mercado + fechamento</div>
+      <div class="card btn"><div class="k">➤</div>Mande pra quem opera cripto</div>
+    </div>
+  </div>
+</section>
+</body>
+</html>
