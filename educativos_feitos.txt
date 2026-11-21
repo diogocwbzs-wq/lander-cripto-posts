@@ -1,3 +1,4 @@
 O que é Bitcoin e por que ele tem valor
 O que é halving
 Stablecoins (USDT, USDC)
+Como funciona uma exchange
