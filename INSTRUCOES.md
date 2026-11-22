@@ -33,7 +33,15 @@ No SLOT 14h, além do carrossel educativo, gere **um Reel curto do mesmo tema** 
 
 ## Aprendizados da semana
 (Atualizado todo domingo pela análise semanal. Leia e aplique antes de criar qualquer post.)
-- Ainda sem dados: conta nova (início 17/11/2026).
+_Semana 15–22/11/2026_
+- ⚠️ Desde 19/11 todo agendamento volta com ERRO "You have reached your Metricool account limit" (Instagram, TikTok e Facebook): nada saiu de 19 a 22/11. Depois de agendar, confira o status; se vier esse erro, avise o usuário em destaque na mensagem final.
+- Dados reais só de 17–18/11 (4 carrosséis): 8 contas alcançadas, 39 visualizações, 3 comentários, 0 salvamentos/compartilhamentos, 0 seguidores novos (total 42). Amostra pequena: trate o resto como hipótese.
+- Melhor post: Fechamento 17/11 20h (9 visualizações) com capa de movimento concreto ("BTC bateu US$ 65 mil e voltou"). Capa com número + movimento do dia > capa genérica: manter.
+- Pior post: Bom dia 18/11 06h (2 visualizações). 06h é o horário mais fraco do Metricool (~5x menos atividade que 10h): a notícia mais forte do dia vai para a capa das 10h ou 18h, não das 06h.
+- Melhores horários previstos (Metricool): 10h é o pico de seg–sex, depois 11–12h e 18h; 20h é médio; sáb/dom têm metade da atividade.
+- Legendas que terminaram com pergunta concreta (Fed, BTC nos US$ 65 mil) tiveram comentário; a sem pergunta (17/11 10h) teve 0. Sempre feche com pergunta específica do dia.
+- Salvamentos e compartilhamentos zerados: inclua 1 slide "consultável" (tabela, checklist, glossário) e escreva "Salva pra consultar depois" no próprio slide, não só na legenda.
+- Reel, Trial Reel e story ainda sem nenhum dado (não chegaram a publicar). Não tirar conclusão de formato até haver dados.
 
 ## Legenda (feed e reel)
 1. Título com emoji (ex.: `📊 Resumo do mercado cripto — 18/11`)
